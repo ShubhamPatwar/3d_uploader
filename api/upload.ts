@@ -73,7 +73,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       // Upload GLB model
-      const glbFile = Array.isArray(files.glb) ? files.glb[0] : files.glb as FormidableFile;
+      const glbFile = (Array.isArray(files.glb) ? files.glb[0] : files.glb) as FormidableFile | undefined;
       if (!glbFile) return res.status(400).json({ error: "GLB file is required" });
 
       const glbUrl = await uploadToS3(
@@ -85,7 +85,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       // Upload thumbnail
       let thumbnailUrl = "";
-      const thumbFile = Array.isArray(files.thumbnail) ? files.thumbnail[0] : files.thumbnail as FormidableFile;
+      const thumbFile = (Array.isArray(files.thumbnail) ? files.thumbnail[0] : files.thumbnail) as FormidableFile | undefined;
       if (thumbFile) {
         thumbnailUrl = await uploadToS3(
           thumbFile.filepath,

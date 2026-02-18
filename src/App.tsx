@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { useState, useRef, useCallback } from "react";
 
 interface UploadState {
